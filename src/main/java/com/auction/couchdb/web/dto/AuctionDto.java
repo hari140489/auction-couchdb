@@ -1,9 +1,9 @@
-package com.auction.couchdb.repository.entity;
+package com.auction.couchdb.web.dto;
 
 /**
  * Created by hsupar on 9/16/2016.
  */
-public class Auction {
+public class AuctionDto {
 
 	private String id;
 
@@ -12,8 +12,6 @@ public class Auction {
 	private String email;
 
 	private String amount;
-
-	private String status;
 
 	public String getId() {
 		return id;
@@ -47,17 +45,9 @@ public class Auction {
 		this.amount = amount;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(final String status) {
-		this.status = status;
-	}
-
 	@Override
 	public String toString() {
-		return "Auction{" + "id='" + id + "', bidId='" + bidId + "', email='"
-			+ email + "', amount='" + amount + "', status='" + status + "'}";
+		return "AuctionDto{" + "id='" + id + "', bidId='" + bidId + "', email='"
+			+ email + "', amount='" + amount + "'}";
 	}
 }

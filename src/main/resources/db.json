@@ -22,8 +22,8 @@ bid:
 }
 
 auction:
-"auction_id": {
-  "bid_assn_id":"bid_assn_id1"
+"auctionid1": {
+  "id":"auctionid1"
   "bid_id":"bid1",
   "user_email":"hari@gmail.com",
   "amount":"10",

@@ -30,4 +30,9 @@ public class CouchDbConfig {
 	public Bucket bidBucket() {
 		return couchbaseCluster().openBucket("bid");
 	}
+
+	@Bean
+	public Bucket auctionBucket() {
+		return couchbaseCluster().openBucket("auction");
+	}
 }
