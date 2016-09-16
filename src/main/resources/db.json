@@ -1,0 +1,31 @@
+user:
+"hari@gmail.com":{
+  "email":"hari@gmail.com",
+  "name":"hari",
+  "password":"someencryptedpassword"
+}
+
+product:
+"product1":{
+  "id":"product1",
+  "name":"iPhone",
+  "category":"Mobile"
+}
+
+bid:
+"bid1":{
+  "id":"bid1",
+  "product_id":"product1",
+  "start_amount":"",
+  "start_date": "",
+  "end_date": ""
+}
+
+auction:
+"auction_id": {
+  "bid_assn_id":"bid_assn_id1"
+  "bid_id":"bid1",
+  "user_email":"hari@gmail.com",
+  "amount":"10",
+  "status" : "WIN"
+}
