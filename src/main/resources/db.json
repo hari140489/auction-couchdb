@@ -6,9 +6,9 @@ user:
 }
 
 product:
-"product1":{
-  "id":"product1",
+"model":{
   "name":"iPhone",
+  "model":"model"
   "category":"Mobile"
 }
 

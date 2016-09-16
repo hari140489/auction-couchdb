@@ -1,6 +1,8 @@
 package com.auction.couchdb.service;
 
+import com.auction.couchdb.exception.AlreadyExistsException;
 import com.auction.couchdb.exception.AuctionException;
+import com.auction.couchdb.exception.DoesNotExistException;
 import com.auction.couchdb.repository.ProductRepository;
 import com.auction.couchdb.repository.entity.Product;
 import com.auction.couchdb.web.dto.ProductDto;
@@ -34,6 +36,10 @@ public class ProductServiceImpl implements ProductService {
 		LOGGER.debug("Started saving product {}", productDto);
 		if (productDto == null) {
 			throw new AuctionException("Input for saving product is null");
+		}
+		if (productRepository.findByModel(productDto.getModel()) != null) {
+			throw new AlreadyExistsException(
+				"Model already exists for input " + productDto);
 		}
 		final Product product = productConverter.convert(productDto);
 		final String id = productRepository.save(product);

@@ -14,6 +14,7 @@ public class ProductConverterImpl implements ProductConverter {
 	public Product convert(final ProductDto productDto) {
 		final Product product = new Product();
 		product.setName(productDto.getName());
+		product.setModel(productDto.getModel());
 		product.setCategory(productDto.getCategory());
 		return product;
 	}

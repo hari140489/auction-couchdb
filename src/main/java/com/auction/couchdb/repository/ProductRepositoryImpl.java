@@ -1,5 +1,6 @@
 package com.auction.couchdb.repository;
 
+import com.auction.couchdb.exception.AuctionException;
 import com.auction.couchdb.repository.entity.Product;
 import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonProcessingException;
 import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -40,10 +42,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 	public String save(final Product product) {
 		LOGGER.debug("Saving product in repository {}", product);
 		try {
-			final String productJson = couchBaseDbObjectMapper.writeValueAsString(
-				product);
 			final String id = UUID.randomUUID().toString();
 			product.setId(id);
+			final String productJson = couchBaseDbObjectMapper.writeValueAsString(
+				product);
 			productBucket.insert(
 				JsonDocument.create(id, JsonObject.fromJson(productJson)));
 			LOGGER.debug("Finished saving product in repository {}", product);
@@ -59,13 +61,43 @@ public class ProductRepositoryImpl implements ProductRepository {
 		LOGGER.debug("Fetching product with id {}", productId);
 		final N1qlQueryResult result = productBucket.query(
 			N1qlQuery.parameterized(
-				"SELECT productId from product where productid=$productId",
+				"SELECT id, name, model, category from product where id=$productId",
 				JsonObject.create().put("productId", productId)));
-		for (N1qlQueryRow n1qlQueryRow : result) {
-
+		Product product = null;
+		for (N1qlQueryRow row : result) {
+			try {
+				product = couchBaseDbObjectMapper.readValue(row.value().toString(), Product.class);
+			}
+			catch (IOException e) {
+				throw new AuctionException(
+					"Error in fetching product for the input id " + productId);
+			}
 		}
 		LOGGER.debug("Finished fetching product {} with id {}", product,
 			productId);
+		return product;
+	}
+
+	@Override
+	public Product findByModel(final String model) {
+		LOGGER.debug("Fetching product with model {]", model);
+		final N1qlQueryResult result = productBucket.query(
+			N1qlQuery.parameterized(
+				"SELECT id, name, model, category from product where model=$model",
+				JsonObject.create().put("model", model)));
+		Product product = null;
+		for (N1qlQueryRow row : result) {
+			try {
+				product = couchBaseDbObjectMapper.readValue(
+					row.value().toString(), Product.class);
+			}
+			catch (IOException e) {
+				throw new AuctionException(
+					"Error in fetching product for the model " + model);
+			}
+		}
+		LOGGER.debug("Finished fetching product {} with model {}", product,
+			model);
 		return product;
 	}
 }

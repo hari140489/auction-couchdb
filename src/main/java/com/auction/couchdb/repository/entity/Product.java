@@ -9,6 +9,8 @@ public class Product {
 
 	private String name;
 
+	private String model;
+
 	private String category;
 
 	public String getId() {
@@ -27,6 +29,14 @@ public class Product {
 		this.name = name;
 	}
 
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(final String model) {
+		this.model = model;
+	}
+
 	public String getCategory() {
 		return category;
 	}
@@ -36,8 +46,8 @@ public class Product {
 	}
 
 	@Override
-	public String toString() {
-		return "Product{" + "id='" + id + "', name='" + name + "', category='"
-			+ category + "'}";
+	public java.lang.String toString() {
+		return "Product{" + "id=" + id + "', name=" + name + "', model=" + model
+			+ "', category=" + category + "'}";
 	}
 }

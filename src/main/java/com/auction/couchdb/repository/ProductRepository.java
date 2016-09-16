@@ -10,4 +10,6 @@ public interface ProductRepository {
 	String save(Product product);
 
 	Product findOne(String productId);
+
+	Product findByModel(String model);
 }

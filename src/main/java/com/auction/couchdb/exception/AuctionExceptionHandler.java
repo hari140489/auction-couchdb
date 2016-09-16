@@ -36,7 +36,18 @@ public class AuctionExceptionHandler {
 		LOGGER.debug("Handling DocumentAlreadyExistsException {}",
 			e.getMessage());
 		final ErrorMessage errorMessage = new ErrorMessage();
-		errorMessage.setMessage("User already exists");
+		errorMessage.setMessage("Data already exists");
+		errorMessage.setTime(LocalDateTime.now());
+		return new ResponseEntity<>(errorMessage,
+			HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(AlreadyExistsException.class)
+	public ResponseEntity<ErrorMessage> handleAlreadyExistsException(
+		final AlreadyExistsException e) {
+		LOGGER.debug("Handling AlreadyExistsException {}", e.getMessage());
+		final ErrorMessage errorMessage = new ErrorMessage();
+		errorMessage.setMessage("Data already exists");
 		errorMessage.setTime(LocalDateTime.now());
 		return new ResponseEntity<>(errorMessage,
 			HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,7 +60,6 @@ public class AuctionExceptionHandler {
 		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setMessage("Data does not exist");
 		errorMessage.setTime(LocalDateTime.now());
-		return new ResponseEntity<ErrorMessage>(errorMessage,
-			HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 	}
 }

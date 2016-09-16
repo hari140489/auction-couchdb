@@ -7,6 +7,8 @@ public class ProductDto {
 
 	private String name;
 
+	private String model;
+
 	private String category;
 
 	public String getName() {
@@ -15,6 +17,14 @@ public class ProductDto {
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(final String model) {
+		this.model = model;
 	}
 
 	public String getCategory() {
@@ -27,7 +37,7 @@ public class ProductDto {
 
 	@Override
 	public String toString() {
-		return "ProductDto{" + "name='" + name + "', category='" + category
-			+ "'}";
+		return "ProductDto{" + "name='" + name + "', model='" + model
+			+ "', category='" + category + "'}";
 	}
 }
